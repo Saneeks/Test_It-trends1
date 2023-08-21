@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Test_It_trends1.Entities
 {
-    internal class Category
+    public class Category
     {
         public int Id { get; set; }
-        public ICollection<New> News { get; set; }
         public string Name { get; set; }
+        public List<Article> Articles { get; set; } = new();
     }
 }
