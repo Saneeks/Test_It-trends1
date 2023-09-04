@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using Test_It_trends1.Entities;
+using Test_It_trends1.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Test_It_trends1.Controllers

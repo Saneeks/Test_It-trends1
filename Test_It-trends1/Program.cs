@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Test_It_trends1;
-using Test_It_trends1.Entities;
+using Test_It_trends1.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +12,7 @@ Console.WriteLine("Started");
 
 var builder = WebApplication.CreateBuilder(args); // Создается WebApplication Builder
 
-builder.Services.AddControllers(); // Для контроллера
+builder.Services.AddControllersWithViews(); // Для контроллера
 builder.Services.AddEndpointsApiExplorer(); // Для сваггера
 builder.Services.AddSwaggerGen(); // Для сваггера
 
@@ -25,15 +25,24 @@ var app = builder.Build(); // Когда основные настройки б�
 
 if (app.Environment.IsDevelopment()) // Если программа запущена в дебаге, то используем запускаем сваггер
 {
-    app.UseSwagger(); 
+    app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-/*app.UseHttpsRedirection();    //Заставляет подключаться через https
+app.UseHttpsRedirection();    //Заставляет подключаться через https
 
-app.UseAuthentication();*/      //Заставляет использовать авторизацию, сейчас не актуально
+app.UseStaticFiles();
 
-app.MapControllers(); // Нужен для указания пути к контроллерам и прочему
+app.UseRouting();
+
+app.UseAuthentication();      //Заставляет использовать авторизацию, сейчас не актуально
+
+//app.MapControllers(); // Нужен для указания пути к контроллерам и прочему
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 using (var scope = app.Services.CreateScope()) // Костыль для создания объекта контекста, потому что IDisposable
 {

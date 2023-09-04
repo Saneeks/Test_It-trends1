@@ -1,0 +1,23 @@
+﻿@using Test_It_trends1.Models
+@model List<Author>
+@{
+    ViewData["Title"] = "ShowAll";
+}
+
+<h1>ShowAll</h1>
+<div>
+    @foreach (var item in Model)
+    {
+        <p>ID: @item.Id <br> Имя: @item.Name </p>
+    }
+
+</div>
+
+<div>
+    <form method="get" asp-controller="Authors" asp-action="ShowAll">
+        <input type="submit" value="Показать всех авторов" />
+    </form>
+
+
+</div>
+

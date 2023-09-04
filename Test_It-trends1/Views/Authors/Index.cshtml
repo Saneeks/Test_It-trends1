@@ -1,0 +1,17 @@
+﻿@model Test_It_trends1.Models.Author
+@{
+    ViewData["Title"] = "Authors page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Authors</h1>
+    <p>Метод AuthorsController с помощью метода Index возвращает Authors/Index.cshtml</a>.</p>
+</div>
+
+<form method="post" asp-controller="Authors" asp-action="AddNewAuthor">
+    <label asp-for="Name"></label> <br />
+    <input asp-for="Name" /><br />
+    <span asp-validation-for="Name"></span><br />
+
+    <input type="submit" value="Отправить" />
+</form>
