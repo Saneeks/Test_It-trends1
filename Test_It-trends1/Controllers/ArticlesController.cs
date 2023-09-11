@@ -69,5 +69,6 @@ namespace Test_It_trends1.Controllers
             await db.SaveChangesAsync();
             return Ok(article);
         }
+        
     }
 }

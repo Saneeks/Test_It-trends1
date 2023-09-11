@@ -34,7 +34,6 @@ namespace Test_It_trends1.Controllers
             return View( await db.Authors.ToListAsync());
         }
 
-
         [HttpPost]
         public async Task<ActionResult<Author>> AddNewAuthor(Author author) 
         {
