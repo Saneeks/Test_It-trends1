@@ -1,31 +1,32 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Test_It_trends1.Models;
+﻿using Test_It_trends1.Models;
 
 namespace Test_It_trends1.Managers
 {
     public class AuthorsManager
     {
         private readonly Context db;
+        
         public AuthorsManager(Context context)
         {
             db = context;
         }
-        Author CreateAuthor(Author author)
+
+        public void CreateAuthor(Author author)
         {
             if (author == null)
-                return null; //КАКАЯ ОШИБКА?
+                throw new ArgumentException(nameof(author));
+
             db.Authors.Add(author);
             db.SaveChanges();
-            return author; // ???
         }
-        void DeleteAuthorByID(int id)
+        public void DeleteAuthorByID(int id)
         {
             Author author = db.Authors.FirstOrDefault(x => x.Id == id);
             if (author == null) ;
             db.Authors.Remove(author);
             db.SaveChanges();
         }
-        Author GetAuthorByID(int id)
+        public Author GetAuthorByID(int id)
         {
             Author author = db.Authors.FirstOrDefault(x => x.Id == id);
             if (author == null)
@@ -33,7 +34,7 @@ namespace Test_It_trends1.Managers
             return author;
 
         }
-        List<Author> GetAuthors()
+        public List<Author> GetAuthors()
         {
             return db.Authors.ToList();
         }

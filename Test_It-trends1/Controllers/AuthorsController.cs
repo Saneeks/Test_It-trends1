@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Test_It_trends1.Managers;
 using Test_It_trends1.Models;
 
 namespace Test_It_trends1.Controllers
 {
     public class AuthorsController : Controller
     {
-        Context db;
-        private readonly ILogger<AuthorsController> _logger;
+        private readonly AuthorsManager _manager;
 
-        public AuthorsController(ILogger<AuthorsController> logger, Context context)
+        public AuthorsController(AuthorsManager manager)
         {
-            _logger = logger;
-            db = context;
+            _manager = manager;
         }
 
         public IActionResult Index()
@@ -24,25 +23,28 @@ namespace Test_It_trends1.Controllers
         public IActionResult ShowById()
         {
             int id = 1;
-            Author author = db.Authors.FirstOrDefault(x => x.Id == id);           
+            Author author = _manager.GetAuthorByID(id);          
             return View(author);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Author>>> ShowAll()
+        public ActionResult<IEnumerable<Author>> ShowAll()
         {
-            return View( await db.Authors.ToListAsync());
+            return View(_manager.GetAuthors());
         }
 
         [HttpPost]
-        public async Task<ActionResult<Author>> AddNewAuthor(Author author) 
+        public ActionResult<Author> AddNewAuthor(Author author) 
         {
-            if (author == null)
+            try
+            {
+                _manager.CreateAuthor(author);
+                return Ok(author);
+            }
+            catch(ArgumentException)
+            {
                 return BadRequest();
-
-            db.Authors.Add(author);
-            await db.SaveChangesAsync();
-            return Ok(author);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,12 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Test_It_trends1;
-using Test_It_trends1.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Test_It_trends1.Controllers;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Test_It_trends1.Managers;
+using Test_It_trends1.Models;
 
 Console.WriteLine("Started");
 
@@ -19,7 +14,7 @@ builder.Services.AddSwaggerGen(); // Для сваггера
 builder.Services.AddDbContext<Context>( //Настраивает контекст Configuraion по умолчанию указывает на appsettings.json
             options => options.UseSqlite(builder.Configuration.GetConnectionString("Sqlite"))  // GetConnectionString("sqlite") указывает на путь настроек в appsettings.json
              );
-
+builder.Services.AddScoped<AuthorsManager>();
 
 var app = builder.Build(); // Когда основные настройки билдера закончены, "сохраняет" и "собирает" билдер, далее настраиваем билдер через переменную app
 
