@@ -267,3 +267,6 @@ C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\obj\Debug\net6.0\r
 C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\obj\Debug\net6.0\Test_It-trends1.pdb
 C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\obj\Debug\net6.0\Test_It-trends1.genruntimeconfig.cache
 C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\obj\Debug\net6.0\ref\Test_It-trends1.dll
+C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\Saneeks\source\repos\Test_It-trends1\Test_It-trends1\bin\Debug\net6.0\System.CodeDom.dll

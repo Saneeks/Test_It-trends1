@@ -48,8 +48,8 @@ using (var scope = app.Services.CreateScope()) // Костыль для созд
 {
     var context = scope.ServiceProvider.GetService<Context>();
     
-    context.Database.EnsureDeleted(); //Пересоздаем бд
-    context.Database.EnsureCreated();
+    //context.Database.EnsureDeleted(); //Пересоздаем бд
+    //context.Database.EnsureCreated();
 
 
     // Заполняем БД базовыми значениями
