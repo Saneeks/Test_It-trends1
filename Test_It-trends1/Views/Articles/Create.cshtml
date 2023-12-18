@@ -1,0 +1,35 @@
+﻿﻿@using Test_It_trends1.ViewModels
+@model ArticlesCreateViewModel
+@{
+    ViewData["Title"] = "Create new article";
+}
+
+
+<form asp-controller="Articles" asp-action="Create">
+    <div>
+        <label asp-for="Title"></label> <br />
+        <input type="text" asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+    </div>
+    <div>
+        <label asp-for="Text"></label> <br />
+        <input type="text" asp-for="Text" />
+        <span asp-validation-for="Text"></span>
+    </div>
+    <div>
+        <label for="author">Author</label>
+        <div>
+            <select id="author" asp-for="AuthorId" asp-items="@(new SelectList(Model.Authors, "Id", "Name"))"></select>
+        </div>
+    </div>
+    <div>
+        <label for="category">Author</label>
+        <div>
+            <select id="category" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))"></select>
+        </div>
+    </div>
+    <div>
+        <input type="submit" value="Создать новую статью" />
+    </div>
+</form>
+

@@ -1,17 +1,33 @@
-﻿@model Test_It_trends1.Models.Author
+﻿﻿@using Test_It_trends1.Models
+@model List<Author>
 @{
     ViewData["Title"] = "Authors page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Authors</h1>
-    <p>Метод AuthorsController с помощью метода Index возвращает Authors/Index.cshtml</a>.</p>
-</div>
-
-<form method="post" asp-controller="Authors" asp-action="AddNewAuthor">
-    <label asp-for="Name"></label> <br />
-    <input asp-for="Name" /><br />
-    <span asp-validation-for="Name"></span><br />
-
-    <input type="submit" value="Отправить" />
-</form>
+<table class="table">
+    <thead>
+        <tr>
+            <td colspan="3">
+                <a asp-controller="Authors" asp-action="Create">Add new author</a>
+            </td>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model)
+        {
+            <tr>
+                <td>@author.Id</td>
+                <td>@author.Name</td>
+                <td>
+                    <a asp-asp-controller="Authors" asp-action="Delete" asp-route-id="@author.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

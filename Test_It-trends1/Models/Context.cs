@@ -20,5 +20,7 @@ namespace Test_It_trends1.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Author> Authors { get; set; }
+
+
     }
 }

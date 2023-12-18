@@ -8,8 +8,10 @@ namespace Test_It_trends1.Models
 {
     public class Category
     {
-        public int Id { get; set; }
+        public int Id { get; set; } // PK
         public string Name { get; set; }
+
+        // Вне таблицы
         public List<Article> Articles { get; set; } = new();
     }
 }

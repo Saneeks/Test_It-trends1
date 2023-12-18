@@ -1,0 +1,43 @@
+﻿@using Test_It_trends1.Models
+@model List<Article>
+@{
+    ViewData["Title"] = "All articles";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <td colspan="7">
+                <a asp-controller="Articles" asp-action="Create">Create new article</a>
+            </td>
+        </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Publication Time</th>
+            <th>Views</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var article in Model)
+        {
+            <tr>
+                <td>@article.Id</td>
+                <td>
+                    <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">@article.Title</a>
+                </td>
+                <td>@article.Category.Name</td>
+                <td>@article.Author.Name</td>
+                <td>@article.Time.ToLocalTime().ToString("dd/MM/yy HH:mm")</td>
+                <td>@article.Views</td>
+                <td>
+                    <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

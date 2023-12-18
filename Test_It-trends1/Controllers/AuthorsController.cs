@@ -15,42 +15,31 @@ namespace Test_It_trends1.Controllers
             _manager = manager;
         }
 
+
         public IActionResult Index()
+        {
+            return View(_manager.GetAll());
+        }
+
+        public IActionResult Create()
         {
             return View();
         }
-
-        public IActionResult ShowById()
-        {
-            int id = 1;
-            Author author = _manager.GetAuthorByID(id);          
-            return View(author);
-        }
-
-        [HttpGet]
-        public ActionResult<IEnumerable<Author>> ShowAll()
-        {
-            return View(_manager.GetAuthors());
-        }
-
         [HttpPost]
-        public ActionResult<Author> AddNewAuthor(Author author) 
+        public IActionResult Create(Author author)
         {
-            try
+            if (ModelState.IsValid)
             {
-                _manager.CreateAuthor(author);
-                return Ok(author);
+                _manager.Create(author);
+                return RedirectToAction(nameof(Index));
             }
-            catch(ArgumentException)
-            {
-                return BadRequest();
-            }
+            return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Delete(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            _manager.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

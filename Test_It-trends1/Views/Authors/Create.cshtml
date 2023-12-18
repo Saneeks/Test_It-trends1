@@ -1,0 +1,16 @@
+﻿﻿@using Test_It_trends1.Models
+@model Author
+@{
+    ViewData["Title"] = "Create new author";
+}
+
+<form asp-controller="Authors" asp-action="Create">
+    <div>
+        <label asp-for="Name"></label> <br />
+        <input type="text" asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <input type="submit" value="Save"/>
+    </div>
+</form>

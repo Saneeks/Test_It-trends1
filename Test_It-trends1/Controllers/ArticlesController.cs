@@ -1,75 +1,85 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Test_It_trends1.Models;
-using Test_It_trends1.Managers;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using Test_It_trends1.Managers;
+using Test_It_trends1.Models;
+using Test_It_trends1.ViewModels;
 
 namespace Test_It_trends1.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")] // Путь будет .../api/Названия контроллера (Articles)/Название метода ()/Передаваемый атрибут
-    public class ArticlesController : ControllerBase
+    public class ArticlesController : Controller
     {
-        Context db;
-        public ArticlesController(Context context) // Тут создаётся контекст и срабатывает конструктор контекста
+        private readonly ArticlesManager _manager;
+        private readonly AuthorsManager _authorsManager;
+        private readonly CommentsManager _commentsManager;
+        private readonly CategoriesManager _categoriesManager;
+
+        public ArticlesController(
+            ArticlesManager manager,
+            AuthorsManager authorsManager,
+            CommentsManager commentsManager,
+            CategoriesManager categoriesManager)
         {
-            db = context;
+            _manager = manager;
+            _authorsManager = authorsManager;
+            _commentsManager = commentsManager;
+            _categoriesManager = categoriesManager;
+        }
+
+        public IActionResult Index()
+        {
+            return View(_manager.GetAll());
+        }
+        public IActionResult Create()
+        {
+            return View(new ArticlesCreateViewModel()
+            {
+                Authors = _authorsManager.GetAll(),
+                Categories = _categoriesManager.GetAll(),
+            });
             
         }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Article>>> GetArticles()  // async - значит в методе должен быть await
-        {
-            return await db.Articles.ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Article>> GetTheArticle(int id) 
-        {
-            Article article = await db.Articles.FirstOrDefaultAsync(x => x.Id == id); 
-            if (article == null)
-                return NotFound();
-            return new ObjectResult(article);
-        }
-
         [HttpPost]
-        public async Task<ActionResult<Article>> Post(Article article) //async должен возвращать Task. ActionResult дожен вернуть код состояния HTTP
+        public IActionResult Create(ArticlesCreateViewModel article)
         {
-            if (article == null)
-                return BadRequest();
+            try
+            {
+                _manager.Create(article.Title, article.Text, article.CategoryId, article.AuthorId);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
 
-            db.Articles.Add(article);
-            await db.SaveChangesAsync();
-            return Ok(article);
+                return RedirectToAction(nameof(Create));
+            }
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Article>> Put (Article article) // ActionResult<Article> дополнительно даёт возможность вернуть article
+        public IActionResult Details(int id) 
         {
-            if (article == null)
-                return BadRequest();    // код 400
-            if (!db.Articles.Any(x => x.Id == article.Id)) // (x => x.Id == id); В x поочередно записываются объекты которые перебирает Any()
-                return NotFound();      // код 404
-            db.Update(article);
-            await db.SaveChangesAsync();
-            return Ok(article);         // код 200
+            var article = _manager.GetByID(id);
+            var comments = _commentsManager.GetComments(id, true);
+            return View(new ArticlesDetailsViewModel(article, comments));
+        }
+        [HttpPost]
+        public IActionResult CreateComment(ArticlesDetailsViewModel article)
+        {
+            //if (!ModelState.IsValid)
+            //   return Redirect("/Articles/Details/"+article.Id);
+            try
+            {
+                _commentsManager.Create(article.Id, article.NewCommentText);
+                return Redirect("/Articles/Details/" + article.Id);
+            }
+            catch (Exception)
+            {
+                return Redirect("/Articles/Details/" + article.Id);
+            }
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Article>> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            Article article = db.Articles.FirstOrDefault(x => x.Id == id); 
-            if (article == null)
-                return NotFound();
-            db.Articles.Remove(article);
-            await db.SaveChangesAsync();
-            return Ok(article);
+            _manager.Delete(id);
+            return RedirectToAction(nameof(Index));
         }
-        
     }
 }

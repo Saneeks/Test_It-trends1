@@ -1,0 +1,38 @@
+﻿@using Test_It_trends1.ViewModels
+@model ArticlesDetailsViewModel
+@{
+    ViewData["Title"] = "Article details";
+}
+<div class="card text-center">
+    <div class="card-header">
+        Article №@Model.Id at @Model.Time.ToLocalTime().ToString("dd/MM/yy HH:mm")
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">@Model.Text</p>
+    </div>
+    <div class="card text-center">
+        <div class="card-header">
+            Comments
+        </div>
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="card text-center">
+                    <div class="card-body">
+                        <p class="card-text">@comment.Text (@comment.Time.ToLocalTime().ToString("dd/MM/yy HH:mm"))</p>
+                    </div>
+                </div>
+            }      
+    </div>
+    <form asp-controller="Articles" asp-action="CreateComment">
+        <input type="hidden" asp-for="Id" />
+        <div>
+            <label asp-for="NewCommentText"></label> <br />
+            <input type="text" asp-for="NewCommentText" />
+            <span asp-validation-for="NewCommentText"></span>
+        </div>
+        <div>
+            <input type="submit" value="Отправить комментарий" />
+        </div>
+    </form>
+</div>
