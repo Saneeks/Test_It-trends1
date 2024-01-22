@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Test_It_trends1.Models;
+using Test_It_trends1.ViewModels;
 
 namespace Test_It_trends1.Controllers
 {
@@ -18,6 +19,14 @@ namespace Test_It_trends1.Controllers
 
         public IActionResult Index()
         {
+<<<<<<< Updated upstream
+=======
+            return View(new AuthorsIndexViewModel(_manager.GetAll()));
+        }
+
+        public IActionResult Create()
+        {
+>>>>>>> Stashed changes
             return View();
         }
 
@@ -35,6 +44,7 @@ namespace Test_It_trends1.Controllers
         }
 
         [HttpPost]
+<<<<<<< Updated upstream
         public async Task<ActionResult<Author>> AddNewAuthor(Author author) 
         {
             if (author == null)
@@ -43,6 +53,16 @@ namespace Test_It_trends1.Controllers
             db.Authors.Add(author);
             await db.SaveChangesAsync();
             return Ok(author);
+=======
+        public IActionResult Create(AuthorCreateViewModel author)
+        {
+            if (ModelState.IsValid)
+            {
+                _manager.Create(new Author() { Name = author.Name });
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+>>>>>>> Stashed changes
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

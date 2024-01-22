@@ -1,0 +1,41 @@
+﻿﻿@using Test_It_trends1.ViewModels
+@model ArticlesCreateViewModel
+@{
+    ViewData["Title"] = "Создание новой статьи";
+}
+
+<div class="col-lg-6 offset-md-3 border rounded bg-light text-lg-center">
+    <h2 class="form-text text-center mb-3">Создать новую статью</h2>
+    <form asp-controller="Articles" asp-action="Create">
+        <div class="row">
+            <label class="col-12 col-lg-4 col-form-label" asp-for="Title"></label>
+            <div class="col-12 col-lg-7">
+                <input class="form-control mb-3" type="text" asp-for="Title" />
+                <span asp-validation-for="Title"></span>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-12 col-lg-4 text-left col-form-label" asp-for="Text"></label>
+            <div class="col-12 col-lg-7">
+                <textarea class="form-control mb-3" rows="4" asp-for="Text"></textarea>
+                <span asp-validation-for="Text"></span>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-12 col-lg-4 col-form-label" asp-for="AuthorId"></label>
+            <div class="col-12 col-lg-7">
+                <select class="w-100 mb-3" id="author" asp-for="AuthorId" asp-items="@(new SelectList(Model.Authors, "Id", "Name"))"></select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-12 col-lg-4 col-form-label" asp-for="CategoryId"></label>
+            <div class="col-12 col-lg-7">
+                <select class="w-100 mb-3" id="category" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))"></select>
+            </div>
+        </div>
+        <div>
+            <input class="btn btn-primary mb-3" type="submit" value="Создать новую статью" />
+        </div>
+    </form>
+</div>
+

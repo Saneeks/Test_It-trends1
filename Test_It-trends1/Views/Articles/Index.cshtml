@@ -1,0 +1,49 @@
+﻿@using Test_It_trends1.ViewModels
+@model ArticlesIndexViewModel
+@{
+    ViewData["Title"] = "Список всех статей";
+}
+
+<a asp-controller="Articles" class="btn btn-primary mb-3 offset-lg-1" asp-action="Create">Создать новую статью</a>
+
+
+<div class="row">
+@foreach (var article in Model.Articles)
+{
+
+    <div class="col-12 offset-0 col-md-5 offset-md-1 col-lg-3 offset-lg-1">
+        <div class="row border bg-light align-items-center">
+            <div class="col-12">
+                <a asp-controller="Articles" asp-action="Details" asp-route-id="@article.Id">@article.Title</a>
+            </div>
+            <div class="col-6">
+                <img src="https://i.pinimg.com/564x/37/a6/d1/37a6d1eb53db754a02a224bd968b33b3.jpg" width="20" height="20">
+                @article.Category.Name
+            </div>
+            <div class="col-6">
+                <img src="https://i.pinimg.com/564x/5e/fd/fc/5efdfc201f57ecb357a1e0c8fc40f464.jpg" width="20" height="20">
+                @article.Author.Name
+            </div>
+            <div class="col-6">
+                <img src="https://i.pinimg.com/564x/69/0c/3f/690c3fba02cf3513d3b7058811b31928.jpg" width="20" height="20">
+                @article.Time.ToLocalTime().ToString("dd/MM/yy HH:mm")
+            </div>
+            <div class="col-6">
+                <img src="https://i.pinimg.com/564x/cd/70/47/cd7047396aa1ee0213ac16a0faf0fd10.jpg" width="20" height="20">
+                @article.Views
+            </div>
+                <div class="col-12 mb-2">
+            
+                <a asp-controller="Articles" asp-action="Delete" asp-route-id="@article.Id">
+                    <img src="https://i.pinimg.com/564x/7e/dd/d1/7eddd178c71947dcbd1c256a4fa49c00.jpg" width="20" height="20"> Удалить статью
+                </a>
+            </div>
+        </div>
+        <br/>
+    </div>
+
+}
+</div>
+
+
+

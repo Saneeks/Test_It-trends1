@@ -8,6 +8,7 @@ using Test_It_trends1.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
+
 Console.WriteLine("Started");
 
 var builder = WebApplication.CreateBuilder(args); // Создается WebApplication Builder

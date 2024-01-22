@@ -1,0 +1,23 @@
+﻿﻿@using Test_It_trends1.ViewModels
+@model AuthorCreateViewModel
+@{
+    ViewData["Title"] = "Создать нового автора";
+}
+
+<div class="col-lg-6 offset-md-3 border rounded bg-light text-lg-center">
+    <h2 class="form-text text-center mb-3">Создание нового автора</h2>
+    <form asp-controller="Authors" asp-action="Create">
+        <div class="row form-group">
+            <label class="col-12 col-lg-4 col-form-label" asp-for="Name"></label>
+            <div class="col-12 col-lg-7">
+                <input class="form-control mb-3" type="text" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary mb-3" type="submit" value="Save" />
+        </div>
+    </form>
+</div>
+
+

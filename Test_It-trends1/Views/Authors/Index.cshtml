@@ -1,8 +1,14 @@
+<<<<<<< Updated upstream
 ﻿@model Test_It_trends1.Models.Author
+=======
+﻿﻿@using Test_It_trends1.ViewModels
+@model AuthorsIndexViewModel
+>>>>>>> Stashed changes
 @{
-    ViewData["Title"] = "Authors page";
+    ViewData["Title"] = "Список авторов";
 }
 
+<<<<<<< Updated upstream
 <div class="text-center">
     <h1 class="display-4">Authors</h1>
     <p>Метод AuthorsController с помощью метода Index возвращает Authors/Index.cshtml</a>.</p>
@@ -15,3 +21,30 @@
 
     <input type="submit" value="Отправить" />
 </form>
+=======
+
+<a asp-controller="Authors" class="btn btn-primary mb-3 offset-lg-1" asp-action="Create">Создать нового автора</a>
+
+
+    <div class="row">
+        @foreach (var author in Model.Authors)
+        {
+            <div class="col-12 offset-0 col-md-5 offset-md-1 col-lg-3 offset-lg-1 offset-lg-1 mb-3">
+                <div class="row border bg-light align-items-center">
+                    <div class="col-1">@author.Id</div>
+                    <div class="col-11">@author.Name</div>
+                <div class="col-12 mb-2">
+                        <a asp-asp-controller="Authors" asp-action="Delete" asp-route-id="@author.Id">
+                        <img src="https://i.pinimg.com/564x/7e/dd/d1/7eddd178c71947dcbd1c256a4fa49c00.jpg" width="20" height="20"> Удалить автора
+                    </a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+
+
+
+
+>>>>>>> Stashed changes
